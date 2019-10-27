@@ -1,4 +1,18 @@
 window.onload = function () {
+
+    var items = JSON.parse(localStorage.getItem('CUSTOM_CLIPBOARD'));
+
+    if(items) {
+        for(i=0;i < items.length; i++) {
+            var item = items[i];
+            console.log(items[i]) 
+            var node = document.createElement("div");
+            var textnode = document.createTextNode(item.id);
+            node.appendChild(textnode);
+            document.getElementById("contentList").appendChild(node);
+        }
+    }
+
     document.querySelector('button').addEventListener('click', function () {
         chrome.identity.getAuthToken({interactive: true }, function (token) {
             console.log(token); 
@@ -67,10 +81,6 @@ window.onload = function () {
                         alert(result.token );
                     });
                 })
- 
-
-
-            
         });
     });
 };

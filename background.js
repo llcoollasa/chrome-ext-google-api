@@ -5,10 +5,22 @@
 chrome.contextMenus.create({
     id: "add-to-fav",
     title: "Add to Favourite",
-    contexts: ["image"]
+    contexts: ["all"]
 });
 
+chrome.contextMenus.create({
+    id: "add-to-fav1",
+    parentId: "add-to-fav",
+    title: "Add",
+    contexts: ["all"]
+});
 
+chrome.contextMenus.create({
+    id: "add-to-fav2",
+    parentId: "add-to-fav",
+    title: "Clear",
+    contexts: ["all"]
+});
  
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     /*
@@ -21,20 +33,29 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         srcUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3
 
     */ 
-    if (info.menuItemId === 'add-to-fav') {
-        if (info.mediaType === 'image') {
-            console.log(info) 
-            document.getElementById('contentList').append('sds');
-            // chrome.storage.local.set({'files': info.srcUrl}, function() {
-            //     console.log('Value is set to ' + info.srcUrl);
-            //     alert( info.srcUrl);
-            // });
+    if (info.menuItemId === 'add-to-fav1') {
+            
+            var items = JSON.parse(localStorage.getItem('CUSTOM_CLIPBOARD'));
 
+            var item = {
+                id: Date.now(),
+                data: info
+            }; 
+ 
+            if (!Array.isArray(items)) {
+                localStorage.setItem('CUSTOM_CLIPBOARD', JSON.stringify([item])); 
+            } else {
+                items.push(item);                
+                localStorage.setItem('CUSTOM_CLIPBOARD', JSON.stringify(items)); 
+            }
 
-            // chrome.storage.local.get(['files'], function(result) {
-            //     alert(result);
-            // });
-        }
+            console.log('Items', JSON.parse(localStorage.getItem('CUSTOM_CLIPBOARD')));
+         
+    }
+
+    if (info.menuItemId === 'add-to-fav2') {
+        localStorage.removeItem("CUSTOM_CLIPBOARD");
+        alert('cleard');
     }
 
 });
