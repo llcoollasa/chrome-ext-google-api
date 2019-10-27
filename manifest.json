@@ -20,5 +20,7 @@
     "oauth2": {
         "client_id": "138829782657-isjjq1gqe2p0dineob3kag2at2o7625q.apps.googleusercontent.com",
         "scopes":["https://www.googleapis.com/auth/contacts.readonly"]
-    }
+    },
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://apis.google.com; object-src 'self'"
+
 }
