@@ -9,7 +9,8 @@
     },
     "permissions": [
         "identity",
-        "storage"
+        "storage",
+        "contextMenus"
     ],
     "background": {
       "scripts": [
